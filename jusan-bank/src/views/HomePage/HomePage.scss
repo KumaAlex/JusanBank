@@ -1,0 +1,157 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 50px 0;
+  background-color: #f6f6f5;
+
+  &__slider {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    max-width: 80%;
+    margin: 0 auto;
+
+    &-image {
+      width: 100%;
+      height: auto;
+      border-radius: 40px;
+    }
+
+    &__btn {
+      position: absolute;
+      top: 50% !important;
+      width: 45px !important;
+      height: 45px !important;
+      border-radius: 100%;
+      background: #f6f6f5;
+      opacity: .3;
+      transition: all .2s linear;
+      font-size: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__left {
+      left: 1%;
+    }
+
+    &__right {
+      right: 1%;
+    }
+  }
+
+  &__navBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    &-item {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+
+  &__services {
+    display: grid;
+    grid-template-areas:
+      "business business"
+      "bank payments";
+    grid-gap: 40px;
+    margin: 20px 160px;
+
+    &-item {
+      background-repeat: no-repeat;
+      height: 230px;
+      background-position: 100% 100%;
+      background-size: contain;
+      transition: all .3s ease-in-out;
+      padding: 35px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      color: #f6f6f5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-name {
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    &-descr {
+      max-width: 300px;
+    }
+
+    &-img {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      transition: .3s linear;
+      right: 0;
+      bottom: 0;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    &-btn {
+      background: #fff;
+      border-radius: 50px;
+      padding: 18px 35px;
+      z-index: 1;
+      text-decoration: none;
+      color: black;
+      width: 70px;
+      text-align: center;
+      margin-top: auto;
+      margin-bottom: 40px;
+      &:hover {
+        background-color: #f6f6f5;
+      }
+    }
+  }
+}
+
+
+.business {
+  background-image: radial-gradient(73.2% 135.36% at 74.15% 69.72%,#898e93 0,#4f4f4f 100%);
+  height: 306px;
+  grid-area: business;
+  &:hover img {
+    width: 54%;
+    height: 104%;
+  }
+}
+
+.bank {
+  background: radial-gradient(73.2% 135.36% at 74.15% 69.72%,#ff7b51 0,#ff4f4f 100%),#ffc63d;
+  grid-area: bank;
+  &:hover img {
+    width: 54%;
+    height: 104%;
+  }
+}
+
+.payments {
+  background: radial-gradient(73.2% 135.36% at 74.15% 69.72%,#ff9357 0,#ff5c2b 100%),#ffc63d;
+  grid-area: payments;
+  &:hover img {
+    width: 54%;
+    height: 104%;
+  }
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .2s ease-in-out;
+}
+
+.fade-enter-active,
+.fade-leave-to {
+  opacity: 0;
+}

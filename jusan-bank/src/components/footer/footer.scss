@@ -1,0 +1,33 @@
+.footer {
+  margin: 0 140px 0 140px;
+  border-top: 1px solid hsla(0, 0%, 17%, 0.2);
+  &__navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  &__navigation-item {
+    font-size: 16px;
+    margin-right: 40px;
+  }
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    &-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+  &__policy {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  &__license {
+    color: gray;
+  }
+}

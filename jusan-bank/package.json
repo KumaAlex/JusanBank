@@ -11,10 +11,13 @@
   "dependencies": {
     "pinia": "^2.1.7",
     "vue": "^3.3.11",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
     "vite": "^5.0.10"
   }
 }
