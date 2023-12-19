@@ -9,6 +9,12 @@
           <span class="profile__top-name__item1">{{ user.firstname }}, {{ user.surname }}</span>
           <span class="profile__top-name__item1">{{ user.username }}</span>
           <span class="profile__top-name__item1">{{ user.phone_number }}</span>
+          <span class="profile__top-name__item1">Bonus:
+            <span v-if="user.bonus">
+            {{ user.bonus }}
+            </span>
+            <span v-else>0</span>
+          </span>
         </div>
         <div class="profile__top-btns">
           <button class="profile__top-btn1 profile__top-btn" @click="logout">Log out</button>
@@ -20,13 +26,19 @@
     <div class="profile__content">
       <div class="profile__content-left">
         <div class="profile__content-left__block">
-          <div class="profile__content__block-name">Interesting</div>
-          <div class="profile__content__block-info">
-            <button class="profile__content__block-btn">
-              Promotions and Discounts
-            </button>
-            <button class="profile__content__block-btn">Popular card</button>
-            <button class="profile__content__block-btn">Reviews</button>
+          <div class="profile__content__block-name">Your payments</div>
+          <div class="profile__content__block-info" v-for="p of payments">
+            <div class="profile__content__block-btn">
+              <p>
+                for: {{ p.title }}
+              </p>
+              <p>
+                price: {{ p.amount }}
+              </p>
+              <p>
+                date: {{ p.date }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -75,6 +87,7 @@ import router from "@/router/index.js";
 import tokenService from "@/services/tokenService.js";
 import userService from "@/services/userService.js";
 import {ref} from "vue";
+import paymentsService from "@/services/paymentsService.js";
 
 export default {
   name: "profilePage",
@@ -84,6 +97,7 @@ export default {
       isEdit: ref(false),
       phone_number: ref(""),
       userImage: ref(""),
+      payments: ref([]),
     }
   },
   mounted() {
@@ -101,8 +115,16 @@ export default {
 
       setTimeout(() => {
             this.getUserData();
+            this.getPays();
           }, 100
       )
+    },
+    async getPays() {
+      let pays = await paymentsService.getPaymentsByUserId();
+      for (let p of pays) {
+        p['title'] = await paymentsService.getPaymentTitleById(p.subcategory_id);
+      }
+      this.payments = pays;
     },
     async getUserData() {
       this.user = await userService.getUserById();

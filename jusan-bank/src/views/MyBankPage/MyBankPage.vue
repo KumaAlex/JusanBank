@@ -8,9 +8,36 @@
       <p>Account Type: {{bankAcc.account_type}}</p>
       <p>Account Number: {{bankAcc.card_number}}</p>
       <p>Card Balance: {{bankAcc.balance}}</p>
-<!--      <p>Carwd Bonus: {{creditInfo.bonus}}</p>-->
       <p>Card Date: {{bankAcc.opening_date}}</p>
     </div>
+
+    <div class="box">
+      <h2 id="top">Transition</h2>
+      <form id="form">
+        <div class="inputBox">
+          <label for="userName">Receiver bank account ID:</label>
+          <input
+              v-model="recId"
+              type="number"
+              name="username"
+              placeholder="Enter Receiver bank account ID"
+          />
+        </div>
+        <div class="inputBox">
+          <label for="userPassword">Amount:</label>
+          <input
+              v-model="amount"
+              type="number"
+              name="password"
+              placeholder="Enter Amount"
+          />
+        </div>
+        <div class="box__btns">
+          <button class="submit-btn" @click="createTrans">Make Transaction</button>
+        </div>
+      </form>
+    </div>
+
     <div class="myBank__transaction-history">
       <h2>Transaction History</h2>
       <ul>
@@ -38,16 +65,26 @@ export default {
     return {
       transactions: ref([]),
       bankAcc: ref([]),
+      recId: ref(),
+      amount: ref(),
     }
   },
   mounted() {
-    if (!tokenService.isAuth()) {
-      router.push('/login');
-    }
-    this.getUserBankAcc();
-    this.getTransById();
+    this.start();
   },
   methods: {
+    async start() {
+      if (!tokenService.isAuth()) {
+        await router.push('/login');
+      }
+      await this.getUserBankAcc();
+      await this.getTransById();
+    },
+    async createTrans() {
+      event.preventDefault();
+      await transService.createTransByReceiverId(this.recId, this.amount);
+      await this.start();
+    },
     async getUserBankAcc() {
       this.bankAcc = await bankService.getBankAcc();
     },

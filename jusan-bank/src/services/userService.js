@@ -40,6 +40,7 @@ export default {
                 "password": body.password,
                 "phone_number": body.phone_number,
                 "profile_photo": body.profile_photo,
+                "bonus_balance": 500,
             });
             const response = await axios.post("http://localhost:8000/users/signup/", sendBody);
             const loginBody = {
@@ -47,6 +48,7 @@ export default {
                 "password": body.password,
             }
             await this.loginUser(loginBody);
+            await bankService.createBankAcc();
         } catch (error) {
             console.log("Error registering user:", error);
         }
@@ -68,7 +70,6 @@ export default {
         if (img !== "") {
             body["profile_photo"] = img;
         }
-        console.log(body);
         const response = await axios.put(`http://localhost:8000/users/${userId}`, body)
     }
 };

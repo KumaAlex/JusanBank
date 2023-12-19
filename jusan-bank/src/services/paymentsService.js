@@ -11,7 +11,7 @@ export default {
         const response = await axios.get(`http://127.0.0.1:8000/subcategories/by_category_id/${catId}`);
         return response.data;
     },
-    async createPayment(catId, subCatId, amount) {
+    async createPayment(catId, subCatId, amount, useBonus) {
         const userId = Number(await userService.getUserId());
         const token = tokenService.getToken();
         const curDate = Math.floor(new Date().getTime() / 1000);
@@ -21,9 +21,8 @@ export default {
             "subcategory_id": subCatId,
             "amount": amount,
             "date": curDate,
+            // "use_bonus": useBonus,
         }
-
-        console.log(body);
         const response = await axios.post('http://127.0.0.1:8000/payments/', body,{
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -31,5 +30,16 @@ export default {
             },
         });
         return response.data;
+    },
+    async getPaymentsByUserId() {
+        const userId = await userService.getUserId();
+        const response = await axios.get(`http://127.0.0.1:8000/payments/by_user_id/${userId}`);
+        return response.data;
+    },
+
+    async getPaymentTitleById(payId) {
+        const response = await axios.get("http://127.0.0.1:8000/subcategories/");
+        const title = response.data.filter(p => p.id === payId);
+        return title[0].title;
     }
 };

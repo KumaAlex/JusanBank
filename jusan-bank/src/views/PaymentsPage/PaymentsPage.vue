@@ -20,7 +20,7 @@
           </div>
           <br>
           <div class="inputBox">
-            <label for="userPassword">Receiver card</label>
+            <label>Receiver card</label>
             <input
                 v-model="receiver"
                 type="text"
@@ -29,12 +29,19 @@
             />
           </div>
           <div class="inputBox">
-            <label for="userPassword">Amount of money</label>
+            <label>Amount of money</label>
             <input
                 v-model="amount"
                 type="number"
                 name="amount"
                 placeholder="Enter amount"
+            />
+          </div>
+          <div class="checkbox">
+            <label>Use bonuses?</label>
+            <input
+                v-model="useBonus"
+                type="checkbox"
             />
           </div>
           <div class="box__btns">
@@ -64,6 +71,7 @@ export default {
       curUserId: ref(""),
       receiver: ref(""),
       currentSubCatId: ref(1),
+      useBonus: ref(false),
     }
   },
   mounted() {
@@ -91,7 +99,7 @@ export default {
     async createType() {
       event.preventDefault();
       console.log(this.currentSubCat);
-      const types = await paymentsService.createPayment(this.currentCat, this.currentSubCatId, this.amount);
+      const types = await paymentsService.createPayment(this.currentCat, this.currentSubCatId, this.amount, this.useBonus);
     },
     async getUserId() {
       this.curUserId = await userService.getUserId();
