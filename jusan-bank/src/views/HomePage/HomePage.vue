@@ -78,7 +78,7 @@ export default {
           descr: "Инвестируйте или доверьте экспертам управлять вашими инвестициями",
           img: "/src/assets/home/services/bank.png",
           class: "bank",
-          link: "my-bank",
+          link: "my_bank",
         },
         {
           name: "Платежи",
@@ -86,6 +86,7 @@ export default {
           img: "/src/assets/home/services/payments.png",
           class: "payments",
           link: "payments",
+          slider: Promise,
         },
       ],
     }
@@ -100,16 +101,20 @@ export default {
   },
   methods: {
     startImageSlider() {
-      setInterval(() => {
+      this.sliderPromise = setInterval(() => {
         this.currentIndex = (this.currentIndex + 1) % this.images.length;
       }, 5000);
     },
     nextSlide() {
       event.preventDefault();
+      clearInterval(this.sliderPromise);
+      this.startImageSlider();
       this.currentIndex = (this.currentIndex + 1) % this.images.length;
     },
     prevSlide() {
       event.preventDefault();
+      clearInterval(this.sliderPromise);
+      this.startImageSlider();
       this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
     },
   },
